@@ -1,0 +1,11 @@
+name = "common-ground-agent"
+main = "src/index.js"
+compatibility_date = "2025-09-01"
+workers_dev = true
+
+[ai]
+binding = "AI"
+
+[observability]
+enabled = true
+# secret: QLOO_API_KEY  (npx wrangler secret put QLOO_API_KEY)
