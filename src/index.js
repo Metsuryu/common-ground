@@ -57,7 +57,10 @@ async function qlooRaw(env, path, params) {
       return JSON.parse(body);
     }
     if ((r.status === 429 || r.status >= 500) && attempt < 5) { await new Promise(res => setTimeout(res, 1000 * 2 ** attempt)); continue; }
-    console.log("qloo", path, r.status); throw new Error(`Qloo ${path} ${r.status}`);
+    console.log("qloo", path, r.status);
+    if (r.status === 429) throw new Error("Qloo rate limit (429)");
+    if (r.status >= 500) throw new Error(`Qloo temporary error (${r.status})`);
+    throw new Error(`Qloo ${path} ${r.status}`);
   }
 }
 
